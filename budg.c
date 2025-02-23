@@ -39,12 +39,12 @@ int parse_int(const char * str) {
 
     if ( errno == ERANGE ) {
         printf("Error: value out of range\n");
-        exit(1);
+        exit(EXIT_FAILURE);
     }
 
     if ( endptr == str || *endptr != '\0' ) {
         printf("Error: invalid number format\n");
-        exit(1);
+        exit(EXIT_FAILURE);
     }
 
     return (int)value;
@@ -56,20 +56,20 @@ int main(int argc, char ** argv)
         printf("Error: expected arguments.\n");
         printf("Usage: %s [initial budget] (current funds)\n", argv[0]);
         printf("       %s --info\n", argv[0]);
-        return 1;
+        return EXIT_FAILURE;
     }
 
     if ( strcmp(argv[1], "--info") == 0 ) {
         printf("%s Ver. %s -- Monthly Budget Progress Calculator\n",
                argv[0], VERSION);
         printf("Copyright (C) 2025 Thomas Foster (www.github.com/teefoss)\n");
-        return 0;
+        return EXIT_SUCCESS;
     }
 
     int funds = parse_int(argv[1]);
     if ( funds == 0 ) {
         printf("Error: bad budget value\n");
-        return 1;
+        return EXIT_FAILURE;
     }
 
     time_t t = time(NULL);
@@ -96,5 +96,5 @@ int main(int argc, char ** argv)
                days_left, actual / days_left);
     }
 
-    return 0;
+    return EXIT_SUCCESS;
 }
