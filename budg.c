@@ -74,11 +74,10 @@ int main(int argc, char ** argv)
 
     time_t t = time(NULL);
     struct tm *tm_info = localtime(&t);
-
     int days_left = month_len[tm_info->tm_mon] - tm_info->tm_mday;
     float progress = (float)days_left / (float)month_len[tm_info->tm_mon];
-
     float expected = roundf((float)funds * progress);
+    
     printf("Current funds should be %.0f.\n", expected);
 
     if ( argc == 3 ) {
